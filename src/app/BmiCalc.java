@@ -1,5 +1,7 @@
 package app;
 
+import javafx.scene.control.Slider;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,7 +13,16 @@ public class BmiCalc extends JFrame {
         //setSize(new Dimension(700));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel contentPane = (JPanel) getContentPane();
+        contentPane.setLayout(new GridLayout(2, 2));
 
+        JSlider inputHeight = new JSlider(100, 280, 180);
+        JSlider inputWeight = new JSlider(30, 200, 50);
+        contentPane.add(inputHeight);
+        contentPane.add(inputWeight);
+
+        JButton compute = new JButton();
+        contentPane.add(compute);
     }
 
     public static void main(String[] args) {
