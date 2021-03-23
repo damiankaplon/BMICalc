@@ -16,19 +16,20 @@ public class BmiCalc extends JFrame {
         JPanel contentPane = (JPanel) getContentPane();
         contentPane.setLayout(new GridLayout(2, 2));
 
-        JSlider inputHeight = new JSlider(100, 280, 180);
-        JSlider inputWeight = new JSlider(30, 200, 50);
-        contentPane.add(inputHeight);
-        contentPane.add(inputWeight);
+        JTextField weight = new JTextField("Your weight: ");
+        JTextField height = new JTextField("Your height: ");
+        weight.setHorizontalAlignment(JTextField.RIGHT);
+        height.setHorizontalAlignment(JTextField.RIGHT);
 
-        JButton compute = new JButton();
+        contentPane.add();
+        contentPane.add();
+
+        JButton compute = new JButton("Calculate my BMI!");
         contentPane.add(compute);
     }
 
     public static void main(String[] args) {
 
-	BmiCalc bmiCalc = new BmiCalc();
-	bmiCalc.setVisible(true);
 
     }
 }
