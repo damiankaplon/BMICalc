@@ -1,7 +1,5 @@
 package calc;
 
-import java.util.Scanner;
-
 public class Calc {
     private float weight;
     private float height;
@@ -22,12 +20,13 @@ public class Calc {
         this.height = height;
     }
 
-    public void calcBmi(){
+    public void calcBmi() {
 
-        this.bmi = this.weight/this.height*height;
+        this.bmi = this.weight / this.height * height;
     }
+/*
+    public static void main(String[] args) {
 
-   /* public static void main(String[] args) {
         Calc calc = new Calc();
         Scanner in = new Scanner(System.in);
         System.out.println("Your weight: ");
