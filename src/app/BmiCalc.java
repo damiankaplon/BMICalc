@@ -1,20 +1,26 @@
 package app;
 
-import javafx.scene.control.Slider;
+import calc.Calc;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class BmiCalc extends JFrame {
+
+public class BmiCalc extends JFrame implements ActionListener {
     private JButton calcYourBmi;
-    private JTextField yourWeight, yourHeight;
+    private JTextField yourWeight, yourHeight, yourBmi;
+    private JLabel heightLabel, weightLabel, bmiLabel;
 
     /* Constructor which mainly creates all the main window (actually the only one) of the app*/
     public BmiCalc(){
         super("Bmi Calculator v1.0.1");
-        setMinimumSize(new Dimension(800, 600));
-        setMaximumSize(new Dimension(1280, 720));
+        setSize(new Dimension(362,110));
         setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         /*Creating a main "Window". Main Frame of application
@@ -27,24 +33,73 @@ public class BmiCalc extends JFrame {
         getContentPane() returns a container to hold objects. You can add objects on the returned container instead of
         adding objects directly to the JFrame or JDialog. */
 
-        JPanel contentPane = (JPanel) getContentPane();
+        JPanel contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(new BorderLayout());
         initComponents();
+        contentPane.add(createMainPanel(),BorderLayout.WEST);
+
 
     }
 
     //method that will create components for main windows. In this case we got 3 components. 2 text fields and 1 button
     private void initComponents(){
-        JTextField weight = new JTextField("Your weight: ");
-        JTextField height = new JTextField("Your height: ");
-        weight.setHorizontalAlignment(JTextField.RIGHT);
-        height.setHorizontalAlignment(JTextField.RIGHT);
-        JButton compute = new JButton("Calculate my BMI!");
+        this.yourWeight = new JTextField();
+        this.yourHeight = new JTextField();
+        this.yourBmi = new JTextField();
+        this.heightLabel = new JLabel();
+        this.weightLabel = new JLabel();
+        this.bmiLabel = new JLabel();
+        this.yourWeight.setHorizontalAlignment(JTextField.RIGHT);
+        this.yourHeight.setHorizontalAlignment(JTextField.RIGHT);
+        this.calcYourBmi = new JButton("Calculate my BMI!");
+        //Adding aciton listener to make program start listening if something happens with button
+        calcYourBmi.addActionListener(this);
+        this.bmiLabel.setText("Your BMI");
+        this.heightLabel.setText("Height:");
+        this.weightLabel.setText("Weight:");
     }
 
+    private JPanel createMainPanel(){
+        JPanel mainPanel = new JPanel();
+         FormLayout formLayout = new FormLayout(
+                "40dlu, 40dlu, 40dlu, 40dlu, 40dlu",
+               "20dlu, 20dlu");
+         mainPanel.setLayout(formLayout);
+         CellConstraints cc = new CellConstraints();
+         mainPanel.add(this.yourWeight, cc.xy(2,1,CellConstraints.FILL,CellConstraints.FILL));
+         mainPanel.add(this.yourHeight, cc.xy(4,1,CellConstraints.FILL,CellConstraints.FILL));
+         mainPanel.add(this.calcYourBmi, cc.xyw(1,2,4,CellConstraints.FILL,CellConstraints.FILL));
+         mainPanel.add(this.yourBmi, cc.xy(5,2, CellConstraints.FILL,CellConstraints.FILL));
+         mainPanel.add(this.weightLabel, cc.xy(3, 1,CellConstraints.FILL, CellConstraints.FILL));
+        mainPanel.add(this.heightLabel, cc.xy(1, 1,CellConstraints.FILL, CellConstraints.FILL));
+        mainPanel.add(this.bmiLabel, cc.xy(5, 1,CellConstraints.CENTER, CellConstraints.CENTER));
+        return  mainPanel;
+    }
+    /* Actualy at the moment of writting this I dont really know how it works. I Override method form inteercae
+    ActionListener but what if i had 50 buttons etc. and i would like to have many methods. What then?
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+
+        if(source == calcYourBmi) {
+
+            Calc calc = new Calc();
+            //Wounder if it will work
+            float yourHeight = new Float(this.yourHeight.getText());
+            float yourWeight = new Float(this.yourWeight.getText());
+            calc.calcBmi(yourHeight, yourWeight);
+            String bmi = new String(String.valueOf(calc.getBmi()));
+            this.yourBmi.setText(bmi.substring(0,4));
+        }
+    }
+
+    //Main method
     public static void main(String[] args) {
         BmiCalc bmiCalc = new BmiCalc();
         bmiCalc.setVisible(true);
+
+
 
     }
 }

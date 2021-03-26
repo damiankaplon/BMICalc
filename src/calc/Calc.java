@@ -20,10 +20,11 @@ public class Calc {
         this.height = height;
     }
 
-    public void calcBmi() {
-
-        this.bmi = this.weight / this.height * height;
+    public void calcBmi(float weight, float height ) {
+        this.bmi = weight / (height * height) ;
     }
+
+
 /*
     public static void main(String[] args) {
 
