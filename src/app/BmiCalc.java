@@ -66,13 +66,13 @@ public class BmiCalc extends JFrame implements ActionListener {
                "20dlu, 20dlu");
          mainPanel.setLayout(formLayout);
          CellConstraints cc = new CellConstraints();
-         mainPanel.add(this.yourWeight, cc.xy(2,1,CellConstraints.FILL,CellConstraints.FILL));
-         mainPanel.add(this.yourHeight, cc.xy(4,1,CellConstraints.FILL,CellConstraints.FILL));
+         mainPanel.add(this.yourHeight, cc.xy(2,1,CellConstraints.FILL,CellConstraints.FILL));
+         mainPanel.add(this.yourWeight, cc.xy(4,1,CellConstraints.FILL,CellConstraints.FILL));
          mainPanel.add(this.calcYourBmi, cc.xyw(1,2,4,CellConstraints.FILL,CellConstraints.FILL));
          mainPanel.add(this.yourBmi, cc.xy(5,2, CellConstraints.FILL,CellConstraints.FILL));
          mainPanel.add(this.weightLabel, cc.xy(3, 1,CellConstraints.FILL, CellConstraints.FILL));
-        mainPanel.add(this.heightLabel, cc.xy(1, 1,CellConstraints.FILL, CellConstraints.FILL));
-        mainPanel.add(this.bmiLabel, cc.xy(5, 1,CellConstraints.CENTER, CellConstraints.CENTER));
+         mainPanel.add(this.heightLabel, cc.xy(1, 1,CellConstraints.FILL, CellConstraints.FILL));
+         mainPanel.add(this.bmiLabel, cc.xy(5, 1,CellConstraints.CENTER, CellConstraints.CENTER));
         return  mainPanel;
     }
     /* Actualy at the moment of writting this I dont really know how it works. I Override method form inteercae
@@ -86,11 +86,17 @@ public class BmiCalc extends JFrame implements ActionListener {
 
             Calc calc = new Calc();
             //Wounder if it will work
-            float yourHeight = new Float(this.yourHeight.getText());
-            float yourWeight = new Float(this.yourWeight.getText());
-            calc.calcBmi(yourHeight, yourWeight);
-            String bmi = new String(String.valueOf(calc.getBmi()));
-            this.yourBmi.setText(bmi.substring(0,4));
+            try {
+                float yourHeight = new Float(this.yourHeight.getText());
+                float yourWeight = new Float(this.yourWeight.getText());
+                calc.calcBmi(yourHeight, yourWeight);
+                String bmi = new String(String.valueOf(calc.getBmi()));
+                this.yourBmi.setText(bmi.substring(0, 4));
+            }
+            catch (NumberFormatException numberFormatException) {
+                this.yourHeight.setText("Height in meters");
+                this.yourWeight.setText("Weight in kilograms");
+            }
         }
     }
 
