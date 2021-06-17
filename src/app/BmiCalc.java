@@ -75,9 +75,6 @@ public class BmiCalc extends JFrame implements ActionListener {
          mainPanel.add(this.bmiLabel, cc.xy(5, 1,CellConstraints.CENTER, CellConstraints.CENTER));
         return  mainPanel;
     }
-    /* Actualy at the moment of writting this I dont really know how it works. I Override method form inteercae
-    ActionListener but what if i had 50 buttons etc. and i would like to have many methods. What then?
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
